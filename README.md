@@ -1,84 +1,117 @@
-# Model Context Protocol (MCP)
+# 🧠 Model Context Protocol (MCP)
 
-> A modular AI protocol designed for agents that remember, reason, and evolve.  
-> Built from the ground up to prioritize **context**, **sovereignty**, and **developer control**.
+## Overview
 
----
+The **Model Context Protocol (MCP)** is an architectural concept for coordinating interactions between large language models, memory systems, and toolchains. It allows agents (like planners, researchers, or supervisors) to share context and delegate tasks intelligently.
 
-## About This Project
-
-This is my personal implementation of the **Model Context Protocol (MCP)** — a local-first, model-agnostic architecture for intelligent agent systems.
-
-MCP isn’t a framework. It’s a protocol.  
-A lightweight orchestration layer where every agent operates on shared memory, acts independently, and communicates through structured context.
-
-Whether you're using local models with **Ollama**, or scaling up with **OpenAI** or **Claude**, this system gives you full control over how agents think, remember, and respond.
+> This repository contains an implementation of an MCP system — built in both Python and Rust — with the goal of exploring practical applications of multi-agent AI orchestration, persistent memory, and real-world tool integration.
 
 ---
 
-## Key Features
+## 🎯 Project Goals
 
-- **Context-first architecture** – agents access and write to a persistent `ContextObject`
-- **Model-agnostic interface** – plug in `Ollama`, `OpenAI`, or `Claude` instantly
-- **Modular orchestration** – swap agents, inject tools, define custom flows
-- **No dependencies on LangChain, CrewAI, etc.** – everything is explicit, transparent, and yours
+- ✅ Build a modular, multi-agent architecture that can evolve over time
+- ✅ Implement persistent memory for context-aware conversations
+- ✅ Add tool-calling (math, file ops, mock search, time, echo)
+- ✅ Support local model APIs (e.g. Ollama) and cloud APIs (e.g. OpenAI)
+- ✅ Provide both CLI and API-based interfaces
+- ✅ Explore both Python and Rust backends
 
 ---
 
-## Getting Started
+## 🔀 Versions in This Repository
+
+| Version         | Language | Interface      | Memory | Agents         | Tool Support | API / WS        | Use Case                        |
+|-----------------|----------|----------------|--------|----------------|---------------|------------------|----------------------------------|
+| `mcp_cli`       | Python   | CLI            | ✅ SQLite | Supervisor      | ❌             | ❌                | Lightweight, test-focused        |
+| `mcp_api`       | Python   | HTTP + WS      | ✅ SQLite | Supervisor + Planner + Research | ✅         | ✅ REST + WebSocket | Full API MVP                     |
+| `mcp_rust_v1.3` | Rust     | CLI + HTTP API | ✅ SQLite | Same as above   | ❌ (planned)   | ✅ via Axum       | High-performance experimental    |
+
+---
+
+## 🧪 Setup Instructions
+
+### 📁 `mcp_cli` — Minimal Local Testing (Python)
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/mcp.git
-cd mcp
+cd mcp_cli
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-```
-
-Update `core/config.py` to select your backend:
-
-```python
-MODEL_BACKEND = "ollama"  # or "openai", "claude"
-```
-
-Then run it:
-
-```bash
 python run_server.py
 ```
 
----
-
-## Why This Matters
-
-This protocol exists because I wanted something that most frameworks don’t offer:
-
-- **Full memory control**  
-- **Transparent agent behavior**  
-- **Freedom to run locally, scale globally, and own the system logic**
-
-If you care about building systems that **last** — not just ones that reply — this project is a place to start.
+> ✅ Test via terminal  
+> ❌ No API or tools in this version
 
 ---
 
-## Roadmap
+### 📁 `mcp_api` — Full API MVP (Python)
 
-- [ ] Add long-term memory backend (Redis or SQLite)
-- [ ] Support tool-calling agents
-- [ ] WebSocket / FastAPI interface
-- [ ] Agent-to-agent messaging
-- [ ] RAG + Embedding tools
+```bash
+cd mcp_api
+cp .env.example .env
+docker build -t mcp-api .
+docker run -p 3000:3000 --env-file .env mcp-api
+```
+
+Access:
+
+- `http://localhost:3000/docs` → Swagger UI  
+- `GET /healthz` → Health check  
+- `POST /query` → Main endpoint  
+- `ws://localhost:3000/ws` → Real-time agent access
+
+✅ Includes:
+- REST + WebSocket interface  
+- Multi-agent routing  
+- Tool-calling  
+- Persistent memory  
+- Docker-ready
 
 ---
 
-## License
+### 📁 `mcp_rust_v1.3` — Rust Version with Axum
 
-MIT
+```bash
+cd mcp_rust_v1_3
+cargo build
+cargo run
+```
+
+API available at `http://localhost:3000`
+
+✅ Features:
+- Multi-agent support  
+- Persistent memory (SQLite)  
+- Axum-based high-performance API  
+- CLI + HTTP input
 
 ---
 
-## Author
+## 🧭 Roadmap:
+- [ ] Agent-to-Agent Messaging  
+- [ ] Document Retrieval (RAG)  
+- [ ] Front-End Interface (React or Svelte)  
+- [ ] Production Deployment (Fly.io, Render, Linode)  
+- [ ] Enhanced Memory Scope & TTL  
+- [ ] Shared memory and scoped goals
 
-**Vincent Moore**  
-[https://vincentmoore.ai](https://vincentmoore.ai)  
-GitHub: [@nomadicvince](https://github.com/nomadicvince)
+---
+
+## 💡 Choosing the Right Version
+
+| Goal                                   | Use Version     |
+|----------------------------------------|-----------------|
+| Quick testing in terminal              | `mcp_cli`       |
+| Full API-ready multi-agent architecture| `mcp_api`       |
+| High-performance compiled system       | `mcp_rust_v1.3` |
+
+---
+
+## 📜 License
+
+MIT License — Free to use, fork, and adapt.
+
+---
+

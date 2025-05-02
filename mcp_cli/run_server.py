@@ -5,7 +5,7 @@ from storage.sqlite_backend import init_db
 
 def main():
     init_db()
-    print("=== Model Context Protocol (MCP) CLI ===")
+    print("=== Model Context Protocol (MCP) ===")
     print("Type 'exit' to quit.\n")
 
     user_id = "local_user"
@@ -21,7 +21,9 @@ def main():
             print("Exiting MCP...")
             break
 
+        print("[DEBUG] Sending to orchestrator:", user_input)
         response = orchestrator.handle_request(user_id, user_input)
+        print("[DEBUG] MCP Response:", response)
         print(f"MCP> {response}\n")
 
 if __name__ == "__main__":

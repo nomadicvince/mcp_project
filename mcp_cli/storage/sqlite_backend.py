@@ -1,3 +1,4 @@
+
 import sqlite3
 import json
 from pathlib import Path
@@ -7,12 +8,7 @@ DB_PATH = Path(__file__).parent / "memory.db"
 def init_db():
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
-    c.execute("""
-        CREATE TABLE IF NOT EXISTS memory (
-            user_id TEXT PRIMARY KEY,
-            data TEXT
-        )
-    """)
+    c.execute("CREATE TABLE IF NOT EXISTS memory (user_id TEXT PRIMARY KEY, data TEXT)")
     conn.commit()
     conn.close()
 

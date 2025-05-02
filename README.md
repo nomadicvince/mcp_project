@@ -4,7 +4,7 @@
 
 The **Model Context Protocol (MCP)** is an architectural concept for coordinating interactions between large language models, memory systems, and toolchains. It allows agents (like planners, researchers, or supervisors) to share context and delegate tasks intelligently.
 
-> This repository contains an implementation of an MCP system — built in both Python and Rust — with the goal of exploring practical applications of multi-agent AI orchestration, persistent memory, and real-world tool integration.
+This repository contains an implementation of an MCP system — built in both Python and Rust — with the goal of exploring practical applications of multi-agent AI orchestration, persistent memory, and real-world tool integration.
 
 ---
 

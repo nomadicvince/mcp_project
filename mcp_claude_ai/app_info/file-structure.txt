@@ -1,0 +1,10 @@
+model_context_server/
+├── .env                       # Environment variables (gitignored)
+├── .env.example               # Example environment variables file
+├── Cargo.toml                 # Rust dependencies and project metadata
+├── src/
+│   └── main.rs                # Rust server application code
+└── static/                    # Frontend static files
+    ├── index.html             # HTML frontend
+    ├── styles.css             # CSS styles
+    └── app.js                 # JavaScript application logic

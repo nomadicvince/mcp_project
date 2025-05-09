@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Context Protocol Server</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Model Context Protocol Server</h1>
+            <p>Powered by Claude 3.7 Sonnet and SurrealDB</p>
+        </header>
+
+        <section class="search-section">
+            <h2>Context Search</h2>
+            <form id="search-form">
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="search-query" 
+                        placeholder="Search for context..." 
+                        required
+                    >
+                    <button type="submit">Search</button>
+                </div>
+            </form>
+            <div id="search-results"></div>
+        </section>
+
+        <section class="generation-section">
+            <h2>Generate with Claude 3.7 Sonnet</h2>
+            <form id="generate-form">
+                <div class="input-group">
+                    <textarea 
+                        id="prompt" 
+                        placeholder="Enter your prompt here..." 
+                        rows="4" 
+                        required
+                    ></textarea>
+                </div>
+                <div class="controls">
+                    <div class="slider-group">
+                        <label for="temperature">Temperature: <span id="temp-value">0.7</span></label>
+                        <input 
+                            type="range" 
+                            id="temperature" 
+                            min="0" 
+                            max="1" 
+                            step="0.1" 
+                            value="0.7"
+                        >
+                    </div>
+                    <div class="slider-group">
+                        <label for="max-tokens">Max Tokens: <span id="tokens-value">1000</span></label>
+                        <input 
+                            type="range" 
+                            id="max-tokens" 
+                            min="100" 
+                            max="4000" 
+                            step="100" 
+                            value="1000"
+                        >
+                    </div>
+                </div>
+                <div class="selected-contexts">
+                    <h3>Selected Context Items:</h3>
+                    <ul id="context-list"></ul>
+                </div>
+                <button type="submit" id="generate-btn">Generate</button>
+            </form>
+            <div id="loading" class="hidden">Generating...</div>
+            <div id="result" class="hidden">
+                <h3>Claude's Response:</h3>
+                <div id="completion"></div>
+                <div id="usage"></div>
+            </div>
+        </section>
+
+        <section class="add-context-section">
+            <h2>Add New Context</h2>
+            <form id="add-context-form">
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="context-id" 
+                        placeholder="Context ID (optional)"
+                    >
+                </div>
+                <div class="input-group">
+                    <textarea 
+                        id="context-content" 
+                        placeholder="Enter context content here..." 
+                        rows="6" 
+                        required
+                    ></textarea>
+                </div>
+                <div class="input-group">
+                    <textarea 
+                        id="context-metadata" 
+                        placeholder="Metadata (JSON format, optional)"
+                        rows="2"
+                    ></textarea>
+                </div>
+                <button type="submit">Add Context</button>
+            </form>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
